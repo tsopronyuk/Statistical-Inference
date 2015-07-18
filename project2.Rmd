@@ -1,0 +1,79 @@
+---
+title: "Statistical Inference Course Project Part 2"
+output: word_document
+---
+
+# Task
+In the second portion of the class, we're going to analyze the ToothGrowth data in the R datasets package.
+
+1.Load the ToothGrowth data and perform some basic exploratory data analyses. 
+
+2.Provide a basic summary of the data.
+
+3.Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there's other approaches worth considering)
+
+4.State your conclusions and the assumptions needed for your conclusions. 
+
+#The Effect of Vitamin C on Tooth Growth in Guinea Pigs
+
+Description
+
+The response is the length of odontoblasts (teeth) in each of 10 guinea pigs at each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid).
+
+Format
+
+A data frame with 60 observations on 3 variables.
+
+[,1]    len	numeric	Tooth length
+[,2]	supp	factor	Supplement type (VC or OJ).
+[,3]	dose	numeric	Dose in milligrams.
+
+#1.Load the ToothGrowth data and perform some basic exploratory data analyses.
+
+```{r}
+head(ToothGrowth)
+str(ToothGrowth)
+
+factor(ToothGrowth$dose)
+
+boxplot(len ~ supp + dose, 
+        data=ToothGrowth, 
+        col="blue",ylab="Tooth Length", 
+        main="Tooth Growth Data in Guinea Pigs")
+
+```
+
+#2.Provide a basic summary of the data.
+
+```{r}
+summary(ToothGrowth)
+table(ToothGrowth$supp,ToothGrowth$dose)
+mean(ToothGrowth$len)
+```
+
+#3.Use hypothesis tests to compare tooth growth by supp and dose.
+
+```{r}
+g1=ToothGrowth[ToothGrowth$supp=="OJ" & ToothGrowth$dose==0.5,1]
+g2=ToothGrowth[ToothGrowth$supp=="VC"& ToothGrowth$dose==0.5,1]
+t.test(g1, g2)
+
+g1=ToothGrowth[ToothGrowth$supp=="OJ" & ToothGrowth$dose==1,1]
+g2=ToothGrowth[ToothGrowth$supp=="VC"& ToothGrowth$dose==1,1]
+t.test(g1, g2)
+
+g1=ToothGrowth[ToothGrowth$supp=="OJ" & ToothGrowth$dose==2,1]
+g2=ToothGrowth[ToothGrowth$supp=="VC"& ToothGrowth$dose==2,1]
+t.test(g1, g2)
+
+```
+
+
+#4.Conclusion
+When the dosage is 0.5 and 1 mg, OJ dosage type result in larger tooth growth than VC dosage type. 
+
+When the dosage is 2 mg, there isn't statistical difference in tooth growth between VC and OL types.
+
+#5.Appendix
+
+The complete R markdown file for this report can be found at the github repo: https://github.com/tsopronyuk/Statistical-Inference
