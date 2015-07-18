@@ -36,10 +36,19 @@ str(ToothGrowth)
 
 factor(ToothGrowth$dose)
 
+require(graphics)
 boxplot(len ~ supp + dose, 
         data=ToothGrowth, 
-        col="blue",ylab="Tooth Length", 
+        col="blue",
+        ylab="Tooth Length", 
         main="Tooth Growth Data in Guinea Pigs")
+
+coplot(len ~ dose | supp, 
+       data = ToothGrowth, 
+       panel = panel.smooth,
+       col="blue",
+       xlab = "Length vs dose, given type of supplement")
+       
 
 ```
 
